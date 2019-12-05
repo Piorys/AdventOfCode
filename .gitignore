@@ -1,2 +1,10 @@
 /venv
 /idea
+
+.idea/workspace.xml
+
+.idea/misc.xml
+
+.idea/AdventOfCode.iml
+
+.idea/vcs.xml
