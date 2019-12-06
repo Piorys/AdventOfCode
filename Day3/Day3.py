@@ -61,13 +61,31 @@ def get_distances(common_points):
 
 wire1_coordinates = get_coordinates(wire_1)
 wire2_coordinates = get_coordinates(wire_2)
-manhattan_distances = get_distances(get_common_coordinates(wire1_coordinates, wire2_coordinates))
-print(min(manhattan_distances))
 
 
-def plot_wires():
-    for c in wire1_coordinates:
-        plt.plot(c[0],c[1],label="Wire 1")
-    for c in wire2_coordinates:
-        plt.plot(c[0], c[1], label="Wire 2")
+# manhattan_distances = get_distances(get_common_coordinates(wire1_coordinates, wire2_coordinates))
+# print(min(manhattan_distances))
+
+
+def plot_wires(wire1, wire2):
+    x_axis_wire1 = []
+    y_axis_wire1 = []
+
+    x_axis_wire2 = []
+    y_axis_wire2 = []
+
+    for coord in wire1:
+        x_axis_wire1.append(coord[0])
+        y_axis_wire1.append(coord[1])
+    for coord in wire2:
+        x_axis_wire2.append(coord[0])
+        y_axis_wire2.append(coord[1])
+
+    plt.title("Wire Map", fontsize=18)
+    wire1 = plt.scatter(x_axis_wire1, y_axis_wire1, s=1, c="red")
+    wire2 = plt.scatter(x_axis_wire2, y_axis_wire2, s=1, c="blue")
+    plt.legend((wire1, wire2), ("Wire 1", "Wire 2"))
     plt.savefig("plot.png")
+
+
+plot_wires(wire1_coordinates, wire2_coordinates)
