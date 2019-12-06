@@ -42,8 +42,6 @@ def get_common_coordinates(coordinates_1, coordinates_2):
     i = 0
     y = 0
     for coord in coordinates_1:
-        sys.stdout.write("Checking coordinate no " + str(i) + " Common coordinates found: " + str(y) + "\r")
-        sys.stdout.flush()
         if coord in coordinates_2:
             y += 1
             common.append(coord)
@@ -57,14 +55,6 @@ def get_distances(common_points):
     for point in common_points:
         distances.append(distance.cityblock([0, 0], point))
     return distances
-
-
-wire1_coordinates = get_coordinates(wire_1)
-wire2_coordinates = get_coordinates(wire_2)
-
-
-# manhattan_distances = get_distances(get_common_coordinates(wire1_coordinates, wire2_coordinates))
-# print(min(manhattan_distances))
 
 
 def plot_wires(wire1, wire2):
@@ -88,4 +78,8 @@ def plot_wires(wire1, wire2):
     plt.savefig("plot.png")
 
 
+wire1_coordinates = get_coordinates(wire_1)
+wire2_coordinates = get_coordinates(wire_2)
+# manhattan_distances = get_distances(get_common_coordinates(wire1_coordinates, wire2_coordinates))
+# print(min(manhattan_distances))
 plot_wires(wire1_coordinates, wire2_coordinates)
