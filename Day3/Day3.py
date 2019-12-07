@@ -12,6 +12,7 @@ wire_2 = data["Wire2"].split(',')
 
 
 def get_coordinates(path_data):
+    print("Calculating coordinates for wire path")
     coordinates = [[0, 0]]
     for instruction in path_data:
 
@@ -34,10 +35,14 @@ def get_coordinates(path_data):
             for x in range(dist):
                 current_coordinate = coordinates[len(coordinates) - 1]
                 coordinates.append([current_coordinate[0], current_coordinate[1] - 1])
+    print("Wire path calculated")
+    print("Total wire path coordinates: "+str(len(coordinates)))
     return coordinates
 
 
 def get_common_coordinates(coordinates_1, coordinates_2):
+    print("Getting intersection coordinates for wire paths")
+    print("Total possible combinations: "+str((len(coordinates_1)+1)*len(coordinates_2)+1))
     common = []
     i = 0
     y = 0
@@ -47,10 +52,12 @@ def get_common_coordinates(coordinates_1, coordinates_2):
             common.append(coord)
         i += 1
     common.remove([0, 0])
+    print("Found "+str(len(common))+" intersection coordinates")
     return common
 
 
 def get_distances(common_points):
+    print("Calculating manhattan distances for common points")
     distances = []
     for point in common_points:
         distances.append(distance.cityblock([0, 0], point))
@@ -80,6 +87,19 @@ def plot_wires(wire1, wire2):
 
 wire1_coordinates = get_coordinates(wire_1)
 wire2_coordinates = get_coordinates(wire_2)
-# manhattan_distances = get_distances(get_common_coordinates(wire1_coordinates, wire2_coordinates))
-# print(min(manhattan_distances))
-plot_wires(wire1_coordinates, wire2_coordinates)
+
+common_coordinates = get_common_coordinates(wire1_coordinates, wire2_coordinates)
+manhattan_distances = get_distances(common_coordinates)
+print("Part 1: " + str(min(manhattan_distances)))
+
+intersection_common_distances = []
+
+print("Calcuating route distance for both wires to reach each intersection")
+for intersection in common_coordinates:
+    wire1_route = wire1_coordinates.index(intersection)
+    wire2_route = wire2_coordinates.index(intersection)
+    intersection_common_distances.append(wire1_route+wire2_route)
+
+print("Part 2: "+str(min(intersection_common_distances)))
+
+
